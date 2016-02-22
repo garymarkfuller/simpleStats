@@ -11,12 +11,15 @@ and open the template in the editor.
     </head>
     <body>
         <?php
-        $post_data = filter_input_array(INPUT_POST);
-        var_dump($post_data);
+        $post_data = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
         require_once('class.test.php');
         $output = new sanitizeDataForCalculations($post_data);
-        // $output->convertValuesIntoArray($post_data); - Required if I weren't using the __construct method in the class.
-        var_dump($output->data_array);
+        $output->convertValuesIntoArray();
+        
+        $result = new calculateMeanClass($output->data_array);
+        if($result !== null) {
+          echo $result->mean;
+        }
         ?>
         <p>Input your data separated by commas in order to calculate the mean and standard deviation.</p>
         <form id="data" method="post" action="">

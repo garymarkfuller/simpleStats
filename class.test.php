@@ -1,31 +1,20 @@
 <?php
-
-
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  * A class to Sanitize a set of values supplied by the user, turn it into an array of numbers then count the number of items in the array
- * @param $n, $data_array
+ * @param $data_array
  * @author Gary
  */
-class sanitizeDataForCalculations {
-
+class sanitizeDataForCalculations 
+{
     public $data_array;  //Class Variable - use $this->data_array to call or set  
+    private $post_data;
     public function __construct($post_data){
-    $this->convertValuesIntoArray($post_data);
+      $this->post_data = $post_data;
     }
-    public function convertValuesIntoArray($post_data) {             
-        $this->data_array = explode(", ", $post_data["dataArray"]);              
+    public function convertValuesIntoArray() {             
+        $this->data_array = explode(", ", $this->post_data["dataArray"]);              
         return $this->data_array;
-        }        
-    //public function countTheValues($data_array){
-        
-    //    return $n;
-     //   }
+    }
 } 
     
 /**
@@ -33,17 +22,33 @@ class sanitizeDataForCalculations {
  * @param $n, $data_array
  * @author Gary
  */
-class calculateMeanClass {
-    protected $n;
-    protected $data_array;
+class calculateMeanClass 
+{
+    public $n;
+    public $sum;
+    public $mean;
+    public function __construct($data_array) {
+      $this->sumOfDataArray($data_array);
+      $this->countTheValues($data_array);
+      $this->divisionOfSumOfDataArray($this->sum, $this->n);
+    }
     public function sumOfDataArray($data_array) {
-        
-        return $sum;
+        $this->sum = array_sum($data_array);
+        return $this->sum;
+    }
+    public function countTheValues($data_array){
+        $this->n = count($data_array);  
+        return $this->n;
     }
     public function divisionOfSumOfDataArray($sum, $n) {
-        
-        return $mean;
+        $this->mean = $sum / $n;
+        return $this->mean;
     }       
+}
+
+class calculateTheMeanClass 
+{
+  
 }
 /**
  * A class to calculate Standard Deviation using a set of values supplied by the user
