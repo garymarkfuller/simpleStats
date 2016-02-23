@@ -16,10 +16,16 @@ and open the template in the editor.
         $output = new sanitizeDataForCalculations($post_data);
         $output->convertValuesIntoArray();
         
-        $result = new calculateMeanClass($output->data_array);
-        if($result !== null) {
-          echo $result->mean;
+        $meanresult = new calculateMeanClass($output->data_array);
+        if($meanresult->mean !== null) {
+          echo "<p>Mean = " . $meanresult->mean . "</p>";
         }
+        
+        $sdresult = new calculateStandardDeviationClass($output->data_array);
+        if($sdresult->standard_deviation !== null) {
+          echo "<p>Standard Deviation = " . $sdresult->standard_deviation . "</p>";
+        }
+        var_dump($sdresult->data_array);
         ?>
         <p>Input your data separated by commas in order to calculate the mean and standard deviation.</p>
         <form id="data" method="post" action="">
