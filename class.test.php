@@ -54,10 +54,6 @@ class calculateMeanClass {
 
 }
 
-class calculateTheMeanClass 
-{
-  
-}
 /**
  * A class to calculate Standard Deviation using a set of values supplied by the user
  * @param $n, $data_array, $sumofxsquared, $sumofsquaredx
@@ -72,6 +68,9 @@ class calculateStandardDeviationClass {
 
   public function __construct($data_array) {
     $this->data_array = $data_array;
+    $this->sumOfSquaredX();
+    $this->sumOfXSquared();
+    $this->standardDeviation();            
   }
 
   public function sumOfXSquared() {
