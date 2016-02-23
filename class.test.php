@@ -75,7 +75,7 @@ class calculateStandardDeviationClass {
   }
 
   public function sumOfXSquared() {
-    $this->sumofxsquared = array_sum($this->data_array) * array_sum($this->data_array);
+    $this->sumofxsquared = (array_sum($this->data_array) * array_sum($this->data_array))/count($this->data_array);
     return $this->sumofxsquared;
   }
 
