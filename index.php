@@ -20,7 +20,10 @@ and open the template in the editor.
     if ($meanresult->mean !== null) {
       echo "<p>Mean = " . $meanresult->mean . "</p>";
     }
-
+    $medianresult = new calculateMedianClass($output->data_array);
+    if ($medianresult->median !== null) {
+      echo "<p>Median = " . $medianresult->median . "</p>";
+    }
     $sdresult = new calculateStandardDeviationClass($output->data_array);
     if ($sdresult->standard_deviation !== null) {
       echo "<p>Standard Deviation = " . $sdresult->standard_deviation . "</p>";
