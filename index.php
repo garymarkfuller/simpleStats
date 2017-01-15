@@ -12,7 +12,7 @@ and open the template in the editor.
   <body>
     <?php
     $post_data = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-    require_once('class.test.php');
+    require_once('src/class.test.php');
     $output = new sanitizeDataForCalculations($post_data);
     $output->convertValuesIntoArray();
 
