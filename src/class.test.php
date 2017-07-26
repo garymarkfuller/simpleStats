@@ -65,17 +65,67 @@ class calculateMeanClass
 
 /**
  *A class to calculate Median using a set of values supplied by the user
- * @param $n, $data_array, $sorted_data, $median
+ * @param $n, $data_array, $median_index_value, $median_value_one, $median_value_two, $ordered_data_array, $median
  * @author Gary 
  */
 class calculateMedianClass 
 {
-    
+    public $n;
+    public $median_index_value;
+    public $median_value_one;
+    public $median_value_two;
+    public $median;
+
+    public function __construct($data_array)
+    {
+        $this->countTheValues($data_array);
+        $this->orderTheValues($data_array);
+        $this->identifyMedianIndexValue($this->n);
+        $this->medianResult($data_array, $this->median_index_value, $this->n);
+    }
+
+    public function countTheValues($data_array)
+    {
+        $this->n = count($data_array);
+        return $this->n;
+    }
+
+    public function orderTheValues(&$data_array)
+    {
+        sort($data_array);
+        return $data_array;
+    }
+
+    public function identifyMedianIndexValue($n)
+    {
+        if ($n % 2 !== 0) {
+            // Median is normally rounded up, but we have to factor in the fact that arrays are indexed from 0
+            $this->median_index_value = round($n/2,0, PHP_ROUND_HALF_DOWN);
+            return $this->median_index_value;
+        } else {
+            $this->median_value_one = $n/2;
+            // Median is normally +1, but we have to factor in the fact that arrays are indexed from 0
+            $this->median_value_two = $n/2 - 1;
+            $this->median_index_value = array($this->median_value_one, $this->median_value_two);
+            return $this->median_index_value;
+        }
+
+    }
+
+    public function medianResult ($data_array, $median_index_value, $n)
+    {
+        if ($n % 2 !== 0 && !is_array($median_index_value)) {
+            $this->median = $data_array[$median_index_value];
+        } else {
+            $this->median = ($data_array[$median_index_value[0]] + $data_array[$median_index_value[1]])/2;
+        }
+        return $this->median;
+    }
 }
 
 /**
  * A class to calculate Standard Deviation using a set of values supplied by the user
- * @param $n, $data_array, $sumofxsquared, $sumofsquaredx
+ * @param $data_array, $sumofxsquared, $sumofsquaredx, $standard_deviation
  * @author Gary
  */
 class calculateStandardDeviationClass 
@@ -91,7 +141,7 @@ class calculateStandardDeviationClass
         $this->data_array = $data_array;
         $this->sumOfSquaredX();
         $this->sumOfXSquared();
-        $this->standardDeviation();
+        $this->standardDeviationResult();
     }
 
     public function sumOfXSquared() 
@@ -109,7 +159,7 @@ class calculateStandardDeviationClass
         return $this->sumofsquaredx;
     }
 
-    public function standardDeviation() 
+    public function standardDeviationResult()
     {
         $this->standard_deviation = sqrt(($this->sumofsquaredx - $this->sumofxsquared) / (count($this->data_array) - 1));
         return $this->standard_deviation;

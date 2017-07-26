@@ -30,7 +30,7 @@ and open the template in the editor.
     }
     ?>
     <p>Input your data separated by commas in order to calculate the mean and standard deviation.</p>
-    <form id="data" method="post" action="">
+    <form id="data" method="post" action="<?php $_SERVER['PHP_SELF']?>">
       <input type="text" name="dataArray">
       <input type="submit">
     </form>
