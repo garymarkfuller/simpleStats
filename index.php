@@ -15,12 +15,13 @@ and open the template in the editor.
     require_once('src/class.test.php');
     $output = new sanitizeDataForCalculations($post_data);
     $output->convertValuesIntoArray();
+    $output->countTheValues();
 
-    $meanresult = new calculateMeanClass($output->data_array);
+    $meanresult = new calculateMeanClass($output->data_array, $output->n);
     if ($meanresult->mean !== null) {
       echo "<p>Mean = " . $meanresult->mean . "</p>";
     }
-    $medianresult = new calculateMedianClass($output->data_array);
+    $medianresult = new calculateMedianClass($output->data_array, $output->n);
     if ($medianresult->median !== null) {
       echo "<p>Median = " . $medianresult->median . "</p>";
     }

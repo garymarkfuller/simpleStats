@@ -2,13 +2,14 @@
 
 /**
  * A class to Sanitize a set of values supplied by the user, turn it into an array of numbers then count the number of items in the array
- * @param $data_array
+ * @param $data_array, $n
  * @author Gary
  */
 class sanitizeDataForCalculations 
 {
 
-    public $data_array;  //Class Variable - use $this->data_array to call or set  
+    public $data_array;  //Class Variable - use $this->data_array to call or set
+    public $n;
     private $post_data;
 
     public function __construct($post_data) 
@@ -18,8 +19,13 @@ class sanitizeDataForCalculations
 
     public function convertValuesIntoArray() 
     {
-        $this->data_array = explode(", ", $this->post_data["dataArray"]);
+        $this->data_array = explode(",", str_replace(" ", "", $this->post_data["dataArray"]));
         return $this->data_array;
+    }
+    public function countTheValues()
+    {
+        $this->n = count($this->data_array);
+        return $this->n;
     }
 
 }
@@ -32,27 +38,20 @@ class sanitizeDataForCalculations
 class calculateMeanClass 
 {
 
-    public $n;
     public $sum;
     public $mean;
 
-    public function __construct($data_array) 
+    public function __construct($data_array, $n)
     {
         $this->sumOfDataArray($data_array);
-        $this->countTheValues($data_array);
-        $this->divisionOfSumOfDataArray($this->sum, $this->n);
+        $this->divisionOfSumOfDataArray($this->sum, $n);
+
     }
 
     public function sumOfDataArray($data_array) 
     {
         $this->sum = array_sum($data_array);
         return $this->sum;
-    }
-
-    public function countTheValues($data_array) 
-    {
-        $this->n = count($data_array);
-        return $this->n;
     }
 
     public function divisionOfSumOfDataArray($sum, $n) 
@@ -70,24 +69,16 @@ class calculateMeanClass
  */
 class calculateMedianClass 
 {
-    public $n;
     public $median_index_value;
     public $median_value_one;
     public $median_value_two;
     public $median;
 
-    public function __construct($data_array)
+    public function __construct($data_array, $n)
     {
-        $this->countTheValues($data_array);
         $this->orderTheValues($data_array);
-        $this->identifyMedianIndexValue($this->n);
-        $this->medianResult($data_array, $this->median_index_value, $this->n);
-    }
-
-    public function countTheValues($data_array)
-    {
-        $this->n = count($data_array);
-        return $this->n;
+        $this->identifyMedianIndexValue($n);
+        $this->medianResult($data_array, $this->median_index_value, $n);
     }
 
     public function orderTheValues(&$data_array)
