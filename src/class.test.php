@@ -118,6 +118,7 @@ class calculateMedianClass
  * A class to calculate Standard Deviation using a set of values supplied by the user
  * @param $data_array, $sumofxsquared, $sumofsquaredx, $standard_deviation
  * @author Gary
+ * Interesting version of this as a function on https://chat.openai.com/share/f71c5744-d96b-4d4e-9a83-0ae53868a3d2
  */
 class calculateStandardDeviationClass 
 {
